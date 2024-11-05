@@ -8,9 +8,21 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        homemadeapple: ["var(--font-homemade-apple)"],
+      },
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        background: "#f4f4f4",
+        foreground: "#d4d4d4",
+        primary: {
+          DEFAULT: "#01788D",
+          hover: "#1E91A5",
+          darker: "#013842",
+        },
+        secondary: {
+          DEFAULT: "#f4f4f4",
+          darker: "#d4d4d4",
+        },
       },
     },
   },
