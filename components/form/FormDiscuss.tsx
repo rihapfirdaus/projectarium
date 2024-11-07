@@ -1,11 +1,9 @@
 "use client";
 
 import { actionUploadDiscussion } from "@/libs/actions/actionDIscussion";
-import { ErrorMessage } from "@/libs/entities/Error";
 import { User } from "@/libs/entities/User";
 import { modalService } from "@/libs/services/ModalService";
 import Image from "next/image";
-import { comment } from "postcss";
 import { useState } from "react";
 
 interface FormDiscussProps {
