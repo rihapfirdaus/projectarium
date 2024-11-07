@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
-// import LoadingProvider from "@/components/provider/LoadingProvider";
-// import ModalProvider from "@/components/provider/ModalProvider";
+import LoadingProvider from "@/components/provider/LoadingProvider";
+import ModalProvider from "@/components/provider/ModalProvider";
 import TemplateNavChecker from "@/components/template/TemplateNavChecker";
 import { Homemade_Apple } from "next/font/google";
 
@@ -26,11 +26,11 @@ export default async function RootLayout({
   return (
     <html lang="in" translate="no">
       <body className={`${homemadeApple.variable}`}>
-        {/* <LoadingProvider>
-          <ModalProvider> */}
-        <TemplateNavChecker>{children}</TemplateNavChecker>
-        {/* </ModalProvider>
-        </LoadingProvider> */}
+        <LoadingProvider>
+          <ModalProvider>
+            <TemplateNavChecker>{children}</TemplateNavChecker>
+          </ModalProvider>
+        </LoadingProvider>
       </body>
     </html>
   );

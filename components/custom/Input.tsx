@@ -49,11 +49,11 @@ export function Input({
 
   return (
     <div
-      className={`relative w-full ${
+      className={`relative w-full flex flex-col ${
         disabled ? "text-[#777777]" : "text-black"
       }`}
     >
-      {label && <label className="text-black">{label}</label>}
+      {label && <label className="text-white self-start px-2">{label}</label>}
       {inputType === "textarea" ? (
         <textarea
           rows={4}
@@ -103,21 +103,25 @@ export function Input({
               title={show ? "sembunyikan" : "tampilkan"}
               type="button"
               onClick={() => setShow(!show)}
-              className={`absolute right-4 h-fit z-10 text-[#d4d4d4] hover:text-black ${
+              className={`absolute right-4 h-fit z-10 text-black ${
                 label ? "top-8" : "top-2"
               } `}
             >
-              {show ? <HideIcon /> : <ShowIcon />}
+              {show ? (
+                <HideIcon strokeWidth={1.5} />
+              ) : (
+                <ShowIcon strokeWidth={1.5} />
+              )}
             </button>
           )}
           {type === "search" && (
             <button
               type="button"
-              className={`absolute left-4 h-fit z-10 text-[#d4d4d4] hover:text-black ${
+              className={`absolute left-4 h-fit z-10 text-black ${
                 label ? "top-8" : "top-2"
               } `}
             >
-              <SearchIcon />
+              <SearchIcon strokeWidth={1.5} />
             </button>
           )}
         </>

@@ -1,10 +1,8 @@
 "use client";
 
-import Link from "next/link";
-import FormAuth from "./FormAuth";
 import { useState } from "react";
 import { Input } from "../custom/Input";
-// import { actionLoginAccount } from "@/libs/actions/actionLoginAccount";
+import { actionLoginAccount } from "@/libs/actions/actionLoginAccount";
 
 interface FormLoginProps {
   handleSwitch: () => void;
@@ -18,7 +16,7 @@ export default function FormLogin({ handleSwitch }: FormLoginProps) {
     setLoading(true);
 
     const formData = new FormData(e.currentTarget);
-    // await actionLoginAccount(formData);
+    await actionLoginAccount(formData);
 
     setLoading(false);
   };
@@ -26,27 +24,29 @@ export default function FormLogin({ handleSwitch }: FormLoginProps) {
   return (
     <>
       <h2 className="text-2xl md:text-3xl font-bold">Login</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col w-full gap-4">
+      <form onSubmit={handleSubmit} className="flex flex-col w-full gap-2">
         <Input
-          title="Masukkan alamat email Anda."
-          type="email"
-          placeholder="Email"
-          name="email"
-          disabled={loading}
+          label="Username"
+          title="Masukkan username Anda."
+          type="text"
+          placeholder="Masukkan username"
+          name="username"
           required
+          disabled={loading}
         />
         <Input
-          title="Kata Sandi (minimal 8 karakter)"
+          label="Kata sandi"
+          title="Masukkan kata sandi Anda."
           type="password"
-          placeholder="Kata Sandi"
+          placeholder="Masukkan Kata Sandi"
           name="password"
-          disabled={loading}
           required
+          disabled={loading}
         />
 
         <button
           type="submit"
-          className="text-white font-bold rounded-lg p-2 bg-primary hover:bg-primary-hover text-center shadow"
+          className="mt-2 text-white font-bold rounded-lg p-2 bg-primary hover:bg-primary-hover text-center shadow"
           disabled={loading}
         >
           {loading ? (

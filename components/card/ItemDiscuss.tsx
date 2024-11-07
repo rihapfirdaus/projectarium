@@ -1,12 +1,13 @@
+import { formatDateTime } from "@/libs/helpers/formatter/dateFormatter";
 import Image from "next/image";
 import Link from "next/link";
 
 interface DiscussItem {
   isReply?: boolean;
+  data: any;
 }
 
-export default function ItemDiscuss({ isReply = false }: DiscussItem) {
-  const images: string[] = ["/blank_project.jpg"];
+export default function ItemDiscuss({ isReply = false, data }: DiscussItem) {
   return (
     <div
       className={`flex flex-col gap-2 px-4 py-4 select-none max-h-[36rem] ${
@@ -25,30 +26,23 @@ export default function ItemDiscuss({ isReply = false }: DiscussItem) {
 
         <div className="flex flex-col">
           <Link href={`profile`} draggable="false" className="font-semibold">
-            Mark
+            {data.user.fullname}
           </Link>
-          <p className="self-end text-sm">23 menit yang lalu</p>
+          <p className="self-end text-sm">
+            {formatDateTime(data.createdAt).date}
+          </p>
         </div>
       </div>
 
-      <p className="line-clamp-2">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Facilis nihil
-        sint neque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-        nostrum ipsa sequi illum optio. Lorem ipsum dolor sit amet consectetur
-        adipisicing elit. Facilis nihil sint neque. Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Rem nostrum ipsa sequi illum optio. Lorem
-        ipsum dolor sit amet consectetur adipisicing elit. Facilis nihil sint
-        neque. Lorem ipsum dolor sit amet consectetur adipisicing elit. Rem
-        nostrum ipsa sequi illum optio.
-      </p>
+      <p className="line-clamp-2">{data.comment}</p>
 
       <div className="flex gap-2 self-start">
         <button className="text-primary-darker font-semibold">Balas</button>
-        {!isReply && (
+        {/* {!isReply && (
           <button className="text-primary-darker font-semibold">
             Sembunyikan balasan
           </button>
-        )}
+        )} */}
       </div>
     </div>
   );

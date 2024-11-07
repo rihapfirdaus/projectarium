@@ -1,23 +1,23 @@
 "use client";
 
+import { actionUploadProject } from "@/libs/actions/actionProject";
+import { User } from "@/libs/entities/User";
+import { modalService } from "@/libs/services/ModalService";
 import { Hash, ImageIcon, Link, Plus, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
-export default function FormPost() {
-  const [addition, setAddition] = useState<{
-    tag: boolean;
-    link: boolean;
-    image: boolean;
-  }>({
-    tag: false,
-    link: false,
-    image: false,
-  });
+interface FormPostProps {
+  user: User | undefined;
+}
 
-  const [links, setLinks] = useState<{ name: string; link: string }[]>([
-    { name: "", link: "" },
-  ]);
+export default function FormPost({ user }: FormPostProps) {
+  const [title, setTitle] = useState<string>("");
+  const [content, setContent] = useState<string>("");
+
+  // const [links, setLinks] = useState<{ name: string; link: string }[]>([
+  //   { name: "", link: "" },
+  // ]);
 
   const [tags, setTags] = useState<string[]>([]);
   const [inputTags, setInputTags] = useState<string>("");
@@ -33,9 +33,9 @@ export default function FormPost() {
     fileInputRef.current?.click();
   };
 
-  const handleAddLink = () => {
-    setLinks([...links, { name: "", link: "" }]);
-  };
+  // const handleAddLink = () => {
+  //   setLinks([...links, { name: "", link: "" }]);
+  // };
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault();
@@ -59,15 +59,15 @@ export default function FormPost() {
     }
   };
 
-  const handleLinkChange = (
-    index: number,
-    field: "name" | "link",
-    value: string
-  ) => {
-    const updatedLinks = [...links];
-    updatedLinks[index] = { ...updatedLinks[index], [field]: value };
-    setLinks(updatedLinks);
-  };
+  // const handleLinkChange = (
+  //   index: number,
+  //   field: "name" | "link",
+  //   value: string
+  // ) => {
+  //   const updatedLinks = [...links];
+  //   updatedLinks[index] = { ...updatedLinks[index], [field]: value };
+  //   setLinks(updatedLinks);
+  // };
 
   const handleRemoveImage = (index: number) => {
     setSelectedImages((prevImages) => prevImages.filter((_, i) => i !== index));
@@ -77,15 +77,53 @@ export default function FormPost() {
     setTags(tags.filter((_, i) => i !== index));
   };
 
-  const handleRemoveLink = (index: number) => {
-    links.length === 1
-      ? setLinks([{ name: "", link: "" }])
-      : setLinks(links.filter((_, i) => i !== index));
+  // const handleRemoveLink = (index: number) => {
+  //   links.length === 1
+  //     ? setLinks([{ name: "", link: "" }])
+  //     : setLinks(links.filter((_, i) => i !== index));
+  // };
+
+  const handleUploadPost = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (tags.length < 2) {
+      modalService.showModal({
+        message: "Tambahkan minimal 2 tag!",
+        type: "info",
+      });
+    } else if (selectedImages.length === 0) {
+      modalService.showModal({
+        message: "Tambahkan gambar untuk postingan!",
+        type: "info",
+      });
+    } else {
+      if (user) {
+        const formData = new FormData();
+        formData.append("title", title);
+        formData.append("content", content);
+        formData.append("userId", user.id);
+        tags.forEach((tag) => formData.append("projectTags", tag));
+        // links.forEach((link) => formData.append("projectLinks", link));
+        selectedImages.forEach((image) => formData.append("images", image));
+
+        console.log(formData);
+        await actionUploadProject(formData);
+      } else {
+        modalService.showModal({
+          message: "Anda belum login!\nSilakan login terlebih dahulu",
+          type: "error",
+          link: "/auth?page=login",
+        });
+      }
+    }
   };
 
   return (
     <>
-      <form className="bg-white p-4 flex flex-col gap-2 sticky top-2 rounded-xl border">
+      <form
+        onSubmit={handleUploadPost}
+        className="bg-white p-4 flex flex-col gap-2 sticky top-2 rounded-xl border"
+      >
         <div className="flex flex-col p-4 gap-2 bg-secondary rounded-xl">
           <div className="flex">
             <Image
@@ -100,12 +138,27 @@ export default function FormPost() {
             <div className="flex-grow flex flex-col gap-2">
               <textarea
                 className="w-full p-2 resize-y border-0 outline-none bg-transparent"
-                placeholder="Buat postingan baru"
-                rows={1}
-                name="post"
+                placeholder="Buat postingan"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                rows={2}
+                name="content"
+                required
               />
 
-              {addition.tag && (
+              {content != "" && (
+                <input
+                  type="text"
+                  className="w-full p-2 resize-y border-0 outline-none bg-transparent"
+                  placeholder="Judul postingan"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
+                  name="title"
+                  required
+                />
+              )}
+
+              {title != "" && (
                 <div className="flex flex-wrap justify-center items-center gap-2">
                   {tags.map((tag, index) => (
                     <div
@@ -128,67 +181,12 @@ export default function FormPost() {
                     value={inputTags}
                     onChange={handleTagChange}
                     className="flex-grow p-2 border-none outline-none bg-transparent"
+                    required={tags.length < 2}
                   />
                 </div>
               )}
 
-              {addition.link && (
-                <div className="flex flex-col gap-2">
-                  {links.map((link, index) => (
-                    <div
-                      key={index}
-                      className="flex text-primary-darker gap-2 w-full justify-center items-center"
-                    >
-                      <input
-                        className="p-2 border-none outline-none bg-transparent"
-                        type="text"
-                        name="link_label"
-                        value={link.name}
-                        onChange={(e) =>
-                          handleLinkChange(index, "name", e.target.value)
-                        }
-                        title="nama yang ditampilkan"
-                        placeholder="Nama link"
-                      />
-                      <input
-                        className="flex-grow p-2 border-none outline-none bg-transparent"
-                        type="text"
-                        name="link_source"
-                        value={link.link}
-                        title="link terkait"
-                        onChange={(e) =>
-                          handleLinkChange(index, "link", e.target.value)
-                        }
-                        placeholder="Link terkait"
-                      />
-                      {link.name != "" && link.link != "" && (
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveLink(index)}
-                          title="hapus link"
-                          className="flex justify-center items-center text-primary-darker hover:text-primary"
-                        >
-                          <X />
-                        </button>
-                      )}
-                      {link.name != "" &&
-                        link.link != "" &&
-                        index === links.length - 1 && (
-                          <button
-                            type="button"
-                            title="tambah link"
-                            onClick={handleAddLink}
-                            className="flex justify-center items-center text-primary-darker hover:text-primary"
-                          >
-                            <Plus />
-                          </button>
-                        )}
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {addition.image && (
+              {tags.length > 0 && (
                 <div className="flex p-2 gap-2 flex-grow overflow-x-scroll">
                   {selectedImages.map((item, index) => (
                     <div key={index} className="relative group cursor-pointer">
@@ -234,63 +232,6 @@ export default function FormPost() {
               )}
             </div>
           </div>
-
-          <div className="flex self-end gap-2">
-            <button
-              type="button"
-              title={
-                addition.tag
-                  ? "hapus semua tag"
-                  : "bantu pengguna lain mengenali postingan Anda dengan tag"
-              }
-              onClick={() => {
-                setAddition((prev) => ({ ...prev, tag: !prev.tag }));
-                addition.tag && setTags([]);
-              }}
-              className={`p-2 rounded-full text-primary-darker hover:text-white hover:bg-primary-darker ${
-                addition.tag && "text-white bg-primary-darker"
-              }`}
-            >
-              <Hash />
-            </button>
-
-            <button
-              type="button"
-              title={
-                addition.link
-                  ? "hapus semua link"
-                  : "tambahkan link terkait postingan Anda"
-              }
-              onClick={() => {
-                console.log(links, addition.link);
-                setAddition((prev) => ({ ...prev, link: !prev.link }));
-                addition.link && setLinks([{ name: "", link: "" }]);
-              }}
-              className={`p-2 rounded-full text-primary-darker hover:text-white hover:bg-primary-darker ${
-                addition.link && "text-white bg-primary-darker"
-              }`}
-            >
-              <Link />
-            </button>
-
-            <button
-              type="button"
-              title={
-                addition.image
-                  ? "hapus semua gambar"
-                  : "tambahkan gambar untuk postingan Anda"
-              }
-              onClick={() => {
-                setAddition((prev) => ({ ...prev, image: !prev.image }));
-                addition.image && setSelectedImages([]);
-              }}
-              className={`p-2 rounded-full text-primary-darker hover:text-white hover:bg-primary-darker ${
-                addition.image && "text-white bg-primary-darker"
-              }`}
-            >
-              <ImageIcon />
-            </button>
-          </div>
         </div>
         <div className="flex self-end items-center gap-4">
           <button
@@ -301,6 +242,7 @@ export default function FormPost() {
           </button>
         </div>
       </form>
+
       {previewImages != undefined && (
         <div className="fixed top-0 bottom-0 left-0 right-0 p-4 z-40 backdrop-blur-sm grid place-items-center">
           <div className="max-w-[calc(100vw-24rem)] overflow-y-scroll rounded-2xl relative">

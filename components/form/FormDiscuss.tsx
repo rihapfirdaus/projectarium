@@ -1,11 +1,48 @@
 "use client";
 
+import { actionUploadDiscussion } from "@/libs/actions/actionDIscussion";
+import { ErrorMessage } from "@/libs/entities/Error";
+import { User } from "@/libs/entities/User";
+import { modalService } from "@/libs/services/ModalService";
 import Image from "next/image";
+import { comment } from "postcss";
+import { useState } from "react";
 
-export default function FormDiscuss() {
+interface FormDiscussProps {
+  data: any;
+  user: User | undefined;
+}
+
+export default function FormDiscuss({ data, user }: FormDiscussProps) {
+  const [comment, setComment] = useState<string>("");
+
+  const handleUploadDiscussion = async (
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    e.preventDefault();
+
+    if (!user) {
+      modalService.showModal({
+        message: "Anda belum login!\nsilakan login terlebih dahulu",
+        type: "error",
+        link: "/auth?page=login",
+      });
+    } else {
+      const formData = new FormData();
+      formData.append("projectId", data.id);
+      formData.append("comment", comment);
+
+      await actionUploadDiscussion(formData);
+      window.location.reload();
+    }
+  };
+
   return (
     <>
-      <form className="bg-white p-4 flex flex-col gap-2 rounded-xl border">
+      <form
+        onSubmit={handleUploadDiscussion}
+        className="bg-white p-4 flex flex-col gap-2 rounded-xl border"
+      >
         <div className="flex flex-col p-4 gap-2 bg-secondary rounded-xl">
           <div className="flex">
             <Image
@@ -22,7 +59,10 @@ export default function FormDiscuss() {
                 className="w-full p-2 resize-y border-0 outline-none bg-transparent"
                 placeholder="Tambah diskusi"
                 rows={2}
-                name="post"
+                value={comment}
+                onChange={(e) => setComment(e.target.value)}
+                name="comment"
+                required
               />
             </div>
           </div>

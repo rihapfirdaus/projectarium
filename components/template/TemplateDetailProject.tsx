@@ -1,31 +1,37 @@
 "use client";
+import ItemDiscuss from "@/components/card/ItemDiscuss";
+import FormDiscuss from "@/components/form/FormDiscuss";
 import {
   MessageCircle as CommentIcon,
   EllipsisVertical,
   Share2 as ShareIcon,
   StarIcon,
 } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import Dropdown from "../navigation/Dropdown";
-import { useState } from "react";
-import Modal from "../custom/Modal";
-import FormEditPost from "../form/FormUpdatePost";
-import { Post } from "@/libs/entities/Project";
+import Image from "next/image";
+import { capitalizeEachWord } from "@/libs/helpers/formatter/stringFormatter";
 import { formatDateTime } from "@/libs/helpers/formatter/dateFormatter";
-import { User } from "@/libs/entities/User";
+import { Post } from "@/libs/entities/Project";
 import {
   actionDeleteProject,
   actionDislikeProject,
   actionLikeProject,
 } from "@/libs/actions/actionProject";
+import { useState } from "react";
+import Dropdown from "../navigation/Dropdown";
+import { User } from "@/libs/entities/User";
 
-interface PostCardProps {
+interface TemplateDetailProjectProps {
   data: Post;
   user: User | undefined;
+  discuss: any[];
 }
 
-export default function PostCard({ data, user }: PostCardProps) {
+export default function TemplateDetailProject({
+  data,
+  user,
+  discuss,
+}: TemplateDetailProjectProps) {
   const [editPost, setEditPost] = useState(false);
   const [liked, setLiked] = useState(data.isLiked || false);
   const [likeCount, setLikeCount] = useState(data._count.projectLikes);
@@ -53,7 +59,7 @@ export default function PostCard({ data, user }: PostCardProps) {
   };
 
   return (
-    <>
+    <div className="max-w-[100rem] flex flex-col gap-2">
       <div className="bg-white flex flex-col gap-2 p-2 select-none w-full max-h-[36rem] rounded-xl border shadow">
         <div className="flex items-center gap-2">
           <div className="flex-grow flex items-center gap-2">
@@ -111,7 +117,7 @@ export default function PostCard({ data, user }: PostCardProps) {
                 className={`rounded-2xl ${
                   data.projectImages.length === 1
                     ? "flex-grow object-cover w-full "
-                    : "object-cover w-fit max-h-[32rem]"
+                    : "object-contain w-fit max-h-[32rem]"
                 }`}
                 src={image.imageUrl}
                 alt="project image"
@@ -162,18 +168,20 @@ export default function PostCard({ data, user }: PostCardProps) {
               ))}
             </div>
           </div>
-          <Link
-            href={`/gallery/${data.id}`}
-            className="flex flex-col w-full gap-2"
-          >
-            <p className="px-2 font-bold text-xl">{data.title}</p>
-            <p className="px-2 line-clamp-2">{data.content}</p>
-          </Link>
+          <p className="px-2">{data.content}</p>
         </div>
       </div>
-      <Modal show={editPost} setShow={() => setEditPost(!editPost)}>
-        <FormEditPost data={data} user={user} />
-      </Modal>
-    </>
+      <FormDiscuss data={data} user={user} />
+      {discuss.length > 0 && (
+        <div className="bg-white p-4 rounded-lg border shadow flex flex-col">
+          <p className="text-2xl font-semibold text-primary-darker">Diskusi</p>
+          <div className="flex flex-col divide-y-2">
+            {discuss.map((item, index) => (
+              <ItemDiscuss key={index} data={item} />
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
   );
 }

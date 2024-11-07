@@ -16,7 +16,7 @@ export default function Modal({ children, show, setShow }: ModalProps) {
     <>
       {show && (
         <div
-          className="fixed top-0 right-0 bottom-0 left-0 grid place-items-center p-4 overflow-y-scroll z-40"
+          className="fixed min-w-[28rem] top-0 right-0 bottom-0 left-0 grid place-items-center p-4 overflow-y-scroll z-40"
           onClick={() => handleHideModal()}
         >
           <div

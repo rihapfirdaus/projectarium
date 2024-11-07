@@ -4,8 +4,12 @@ import FormRegister from "./FormRegister";
 import FormLogin from "./FormLogin";
 import { useState } from "react";
 
-export default function FormAuth() {
-  const [show, setShow] = useState<"login" | "register">("login");
+interface FormAuthProps {
+  page?: "login" | "register";
+}
+
+export default function FormAuth({ page = "login" }: FormAuthProps) {
+  const [show, setShow] = useState<"login" | "register">(page);
 
   const handleSwitch = () => {
     show === "login" ? setShow("register") : setShow("login");
@@ -16,8 +20,8 @@ export default function FormAuth() {
         className={`relative flex rounded-3xl overflow-clip border min-h-[36rem]  text-white backdrop-blur-sm bg-primary-darker bg-opacity-45 shadow transition-all duration-500`}
       >
         <div
-          className={`absolute z-20 top-0 bottom-0 lg:flex justify-center items-center w-full lg:w-auto lg:max-w-[28rem] lg:min-w-[28rem] py-8 sm:py-0 xs:min-h-[36rem] bg-primary-darker transition-transform duration-500 ${
-            show === "login" ? "translate-x-0" : "translate-x-full"
+          className={`hidden absolute z-20 top-0 bottom-0 lg:flex justify-center items-center w-full lg:w-auto lg:max-w-[28rem] md:min-w-[28rem] py-8 sm:py-0 xs:min-h-[36rem] bg-primary-darker transition-transform duration-500 ${
+            show === "login" ? "translate-x-full" : "translate-x-0"
           }`}
         >
           <div className="h-full flex flex-col justify-center items-center w-full gap-4 text-center max-w-80">
@@ -26,13 +30,21 @@ export default function FormAuth() {
             </p>
           </div>
         </div>
-        <div className="hidden lg:flex justify-center items-center w-full lg:w-auto lg:max-w-[28rem] lg:min-w-[28rem] py-8 sm:py-0 xs:min-h-[36rem]">
-          <div className="h-full flex flex-col justify-center items-center w-full gap-4 text-center max-w-80">
+        <div
+          className={`${
+            show === "login" ? "flex" : "hidden"
+          } lg:flex justify-center items-center w-full min-w-80 lg:w-auto lg:max-w-[28rem] md:min-w-[28rem] py-8 sm:py-0 xs:min-h-[36rem]`}
+        >
+          <div className="max-w-[calc(100%-2rem)] h-full flex flex-col justify-center items-center w-full gap-4 text-center md:max-w-80">
             <FormLogin handleSwitch={handleSwitch} />
           </div>
         </div>
-        <div className="flex justify-center items-center w-full lg:w-auto lg:max-w-[28rem] lg:min-w-[28rem] py-8 sm:py-0 xs:min-h-[36rem]">
-          <div className="h-full flex flex-col justify-center items-center w-full gap-4 text-center max-w-80">
+        <div
+          className={`${
+            show === "register" ? "flex" : "hidden"
+          } lg:flex justify-center items-center w-full min-w-80 lg:w-auto lg:max-w-[28rem] md:min-w-[28rem] py-8 sm:py-0 xs:min-h-[36rem]`}
+        >
+          <div className="max-w-[calc(100%-2rem)] h-full flex flex-col justify-center items-center w-full gap-4 text-center md:max-w-80">
             <FormRegister handleSwitch={handleSwitch} />
           </div>
         </div>
