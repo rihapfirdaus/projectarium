@@ -17,7 +17,7 @@ export default function galleryPage() {
       <p className="text-primary-darker font-semibold text-lg">
         Projek terpopuler
       </p>
-      <PostCard />
+      {/* <PostCard /> */}
       <p className="text-primary-darker font-semibold text-lg">
         Projek terbaru
       </p>
