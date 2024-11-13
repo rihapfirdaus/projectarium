@@ -4,7 +4,7 @@ import { useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function AuthPage() {
-  const [query, setQuery] = useState<string | null>();
+  const [query, setQuery] = useState<string | null>(null);
   const searchParams = useSearchParams();
 
   useEffect(() => {
