@@ -1,12 +1,20 @@
 "use client";
 import FormAuth from "@/components/form/FormAuth";
 import { useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function AuthPage() {
-  const params = useSearchParams().get("page");
+  const [query, setQuery] = useState<string | null>();
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const queryParam = searchParams.get("page");
+    setQuery(queryParam);
+  }, [searchParams]);
+
   return (
     <FormAuth
-      page={params === "login" || params === "register" ? params : "login"}
+      page={query === "login" || query === "register" ? query : "login"}
     />
   );
 }
