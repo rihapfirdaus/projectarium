@@ -8,7 +8,7 @@ export default async function Home() {
   const user = (await getAccount()) || undefined;
   const projects = (await getNewestProject()) || [];
   return (
-    <div className="flex flex-col gap-2 overflow-y-clip max-h-screen">
+    <div className="flex flex-col gap-2 overflow-y-clip">
       <FormPost user={user} />
       <div className="flex flex-col overflow-y-scroll gap-2">
         {projects.length > 0 &&

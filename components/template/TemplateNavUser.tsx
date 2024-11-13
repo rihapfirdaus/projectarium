@@ -143,7 +143,7 @@ export default function TemplateNavUser({ children }: TemplateUserProps) {
                 <button
                   className={`flex gap-2 p-3 w-full rounded-lg self-start items-center justify-start ${
                     sidebar ? "max-w-none" : "max-w-12 min-w-12"
-                  } text-white hover:bg-gradient-to-r from-primary to-primary-hover`}
+                  } text-white hover:bg-red-800`}
                   title="Logout"
                 >
                   <LogOutIcon

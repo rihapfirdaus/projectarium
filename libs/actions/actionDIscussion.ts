@@ -12,3 +12,23 @@ export async function actionUploadDiscussion(formData: FormData) {
     console.log(e);
   }
 }
+
+export async function actionUploadReply(formData: FormData) {
+  try {
+    let replyRequest = {
+      comment: formData.get("comment"),
+    };
+
+    // if () {
+    replyRequest = {
+      comment: `@${formData.get("username")} ${formData.get("comment")}`,
+    };
+    // }
+    await axiosInstance.post(
+      `/discussions/projects/${formData.get("discussId")}/reply`,
+      replyRequest
+    );
+  } catch (e: any) {
+    console.log(e);
+  }
+}

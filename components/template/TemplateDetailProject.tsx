@@ -20,6 +20,7 @@ import {
 import { useState } from "react";
 import Dropdown from "../navigation/Dropdown";
 import { User } from "@/libs/entities/User";
+import DiscussSection from "../section/DiscussSection";
 
 interface TemplateDetailProjectProps {
   data: Post;
@@ -171,17 +172,7 @@ export default function TemplateDetailProject({
           <p className="px-2">{data.content}</p>
         </div>
       </div>
-      <FormDiscuss data={data} user={user} />
-      {discuss.length > 0 && (
-        <div className="bg-white p-4 rounded-lg border shadow flex flex-col">
-          <p className="text-2xl font-semibold text-primary-darker">Diskusi</p>
-          <div className="flex flex-col divide-y-2">
-            {discuss.map((item, index) => (
-              <ItemDiscuss key={index} data={item} />
-            ))}
-          </div>
-        </div>
-      )}
+      <DiscussSection id={data.id} user={user} data={data} discuss={discuss} />
     </div>
   );
 }
