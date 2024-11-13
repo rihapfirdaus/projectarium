@@ -101,7 +101,7 @@ export async function actionLikeProject(projectId: string) {
     if (e.status === 401) {
       modalService.showModal({
         message: "Sesi anda telah habis, silakan login kembali!",
-        link: "/auth?page=login",
+        link: "/auth",
         type: "error",
       });
     }
@@ -123,7 +123,7 @@ export async function actionDislikeProject(projectId: string) {
     if (e.status === 401) {
       modalService.showModal({
         message: "Sesi anda telah habis, silakan login kembali!",
-        link: "/auth?page=login",
+        link: "/auth",
         type: "error",
       });
     }

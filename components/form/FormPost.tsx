@@ -112,7 +112,7 @@ export default function FormPost({ user }: FormPostProps) {
         modalService.showModal({
           message: "Anda belum login!\nSilakan login terlebih dahulu",
           type: "error",
-          link: "/auth?page=login",
+          link: "/auth",
         });
       }
     }

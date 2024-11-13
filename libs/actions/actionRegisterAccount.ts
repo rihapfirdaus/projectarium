@@ -31,7 +31,7 @@ export async function actionRegisterAccount(formData: FormData) {
       modalService.showModal({
         message: "Register sukses! Silahkan login kembali..",
         type: "success",
-        link: "/auth?page=login",
+        link: "/auth",
       });
     }
   } catch (e: any) {

@@ -25,7 +25,7 @@ export default function FormDiscuss({ data, user }: FormDiscussProps) {
       modalService.showModal({
         message: "Anda belum login!\nsilakan login terlebih dahulu",
         type: "error",
-        link: "/auth?page=login",
+        link: "/auth",
       });
     } else {
       const formData = new FormData();

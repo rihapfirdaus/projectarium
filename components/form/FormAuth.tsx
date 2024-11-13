@@ -1,15 +1,10 @@
 "use client";
-import Image from "next/image";
 import FormRegister from "./FormRegister";
 import FormLogin from "./FormLogin";
 import { useState } from "react";
 
-interface FormAuthProps {
-  page?: "login" | "register";
-}
-
-export default function FormAuth({ page = "login" }: FormAuthProps) {
-  const [show, setShow] = useState<"login" | "register">(page);
+export default function FormAuth() {
+  const [show, setShow] = useState<"login" | "register">("login");
 
   const handleSwitch = () => {
     show === "login" ? setShow("register") : setShow("login");
