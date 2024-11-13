@@ -1,7 +1,7 @@
 "use client";
 import FormAuth from "@/components/form/FormAuth";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 
 export default function AuthPage() {
   const [query, setQuery] = useState<string | null>(null);
@@ -13,8 +13,10 @@ export default function AuthPage() {
   }, [searchParams]);
 
   return (
-    <FormAuth
-      page={query === "login" || query === "register" ? query : "login"}
-    />
+    <Suspense>
+      <FormAuth
+        page={query === "login" || query === "register" ? query : "login"}
+      />
+    </Suspense>
   );
 }
