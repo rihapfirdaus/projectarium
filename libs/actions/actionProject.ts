@@ -77,6 +77,7 @@ export async function actionDeleteProject(projectId: string) {
         modalService.showModal({
           message: "Postingan terhapus!",
           type: "success",
+          link: "/gallery",
         });
       }
     } catch (e: any) {
