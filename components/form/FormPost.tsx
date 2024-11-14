@@ -122,7 +122,7 @@ export default function FormPost({ user }: FormPostProps) {
     <>
       <form
         onSubmit={handleUploadPost}
-        className="bg-white p-4 flex flex-col gap-2 sticky top-2 rounded-xl border"
+        className="bg-white p-4 flex flex-col gap-2 rounded-xl border"
       >
         <div className="flex flex-col p-4 gap-2 bg-secondary rounded-xl">
           <div className="flex">
