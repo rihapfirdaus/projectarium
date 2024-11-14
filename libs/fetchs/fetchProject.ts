@@ -57,3 +57,21 @@ export async function getNewestProject() {
     return null;
   }
 }
+
+export async function getPopularProject() {
+  try {
+    const response = await axiosInstance.get("/projects");
+
+    const projects: Post[] = response.data.data;
+
+    if (projects.length === 0 || projects[0].id === undefined) return null;
+
+    const filteredProjects = projects.sort(
+      (a, b) => b._count.projectLikes - a._count.projectLikes
+    );
+
+    return filteredProjects.slice(0, 3);
+  } catch {
+    return null;
+  }
+}

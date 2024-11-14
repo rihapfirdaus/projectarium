@@ -17,9 +17,10 @@ import { actionLogoutAccount } from "@/libs/actions/actionLogoutAccount";
 
 interface TemplateUserProps {
   children: React.ReactNode;
+  data: any[];
 }
 
-export default function TemplateNavUser({ children }: TemplateUserProps) {
+export default function TemplateNavUser({ children, data }: TemplateUserProps) {
   const [sidebar, setSidebar] = useState(false);
 
   const pathName = usePathname();
@@ -181,9 +182,9 @@ export default function TemplateNavUser({ children }: TemplateUserProps) {
                 <p className="text-primary-darker text-lg font-bold">
                   Project terpopuler
                 </p>
-                <ItemPost />
-                <ItemPost />
-                <ItemPost />
+                {data.map((item, index) => (
+                  <ItemPost data={item} key={index} />
+                ))}
               </div>
             </div>
           </div>

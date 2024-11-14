@@ -45,11 +45,11 @@ export default function GalleryCard({ data, user }: GalleryCardProps) {
   };
 
   return (
-    <Link
-      href={`/gallery/${data.id}`}
-      className="bg-white flex flex-col gap-2 p-2 select-none w-full max-h-96 rounded-xl border shadow"
-    >
-      <div className="flex items-center gap-2">
+    <div className="bg-white flex flex-col gap-2 p-2 select-none w-full max-h-96 rounded-xl border shadow">
+      <Link
+        href={`/account/${data.user.id}`}
+        className="flex items-center gap-2"
+      >
         <Image
           draggable="false"
           className="rounded-full w-10 h-10"
@@ -67,7 +67,7 @@ export default function GalleryCard({ data, user }: GalleryCardProps) {
             {formatDateTime(data.createdAt).date}
           </p>
         </div>
-      </div>
+      </Link>
 
       <div className="flex gap-2 overflow-x-scroll">
         <Image
@@ -96,18 +96,23 @@ export default function GalleryCard({ data, user }: GalleryCardProps) {
           <p>{data._count.projectDiscussions}</p>
         </div>
       </div>
-      <p className="px-2 font-bold text-xl">{data.title}</p>
-      <p className="px-2 line-clamp-2 text-start flex-grow">{data.content}</p>
-      <div className="px-2 flex gap-2 overflow-x-scroll">
-        {data.projectTags.map((tag, index) => (
-          <p
-            key={index}
-            className="bg-primary-darker py-1 px-4 text-white rounded-3xl whitespace-nowrap"
-          >
-            {tag.name}
-          </p>
-        ))}
-      </div>
-    </Link>
+      <Link
+        href={`/gallery/${data.id}`}
+        className="flex flex-col gap-2 flex-grow"
+      >
+        <p className="px-2 font-bold text-xl">{data.title}</p>
+        <p className="px-2 line-clamp-2 text-start flex-grow">{data.content}</p>
+        <div className="px-2 flex gap-2 overflow-x-scroll">
+          {data.projectTags.map((tag, index) => (
+            <p
+              key={index}
+              className="bg-primary-darker py-1 px-4 text-white rounded-3xl whitespace-nowrap"
+            >
+              {tag.name}
+            </p>
+          ))}
+        </div>
+      </Link>
+    </div>
   );
 }

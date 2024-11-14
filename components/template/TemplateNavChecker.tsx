@@ -4,9 +4,13 @@ import TemplateNavUser from "./TemplateNavUser";
 
 interface TemplateCheckerProps {
   children: React.ReactNode;
+  data: any[];
 }
 
-export default function TemplateNavChecker({ children }: TemplateCheckerProps) {
+export default function TemplateNavChecker({
+  children,
+  data,
+}: TemplateCheckerProps) {
   const pathName = usePathname();
 
   const authPages = [
@@ -22,7 +26,7 @@ export default function TemplateNavChecker({ children }: TemplateCheckerProps) {
     children
   ) : (
     <>
-      <TemplateNavUser>{children}</TemplateNavUser>
+      <TemplateNavUser data={data}>{children}</TemplateNavUser>
     </>
   );
 }
