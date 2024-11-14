@@ -1,5 +1,7 @@
 import { Post } from "@/libs/entities/Project";
+
 import Image from "next/image";
+import Link from "next/link";
 
 interface ItemPostProps {
   data: Post;
@@ -7,10 +9,13 @@ interface ItemPostProps {
 
 export default function ItemPost({ data }: ItemPostProps) {
   return (
-    <div className="bg-white flex gap-2 p-2 select-none max-w-96 rounded-xl border shadow justify-center items-center">
+    <Link
+      href={`/gallery/${data.id}`}
+      className="bg-white flex gap-2 p-2 select-none max-w-96 rounded-xl border shadow justify-center items-center"
+    >
       <Image
         draggable="false"
-        className={`rounded-2xl object-cover w-24 h-24`}
+        className={`rounded-xl object-cover w-24 h-16`}
         src={data.projectImages[0].imageUrl}
         alt="project image"
         width={1920}
@@ -24,6 +29,6 @@ export default function ItemPost({ data }: ItemPostProps) {
           {data.projectTags[0].name}
         </p>
       </div>
-    </div>
+    </Link>
   );
 }
