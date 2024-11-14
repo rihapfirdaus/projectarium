@@ -24,7 +24,7 @@ export default async function ProjectDetail({
     modalService.showModal({
       message: ErrorMessage.NotFound,
       type: "error",
-      link: "/",
+      link: "/gallery",
     });
 
     return <></>;

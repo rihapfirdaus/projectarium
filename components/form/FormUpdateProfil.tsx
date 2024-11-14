@@ -84,7 +84,7 @@ export default function FormEditAccount() {
       </p>
 
       <div className="flex gap-2">
-        <div className="relative group rounded-full w-40 h-40 border-2 border-primary-darker overflow-clip">
+        {/* <div className="relative group rounded-full w-40 h-40 border-2 border-primary-darker overflow-clip">
           <Image
             draggable="false"
             className="w-40 h-40"
@@ -114,7 +114,7 @@ export default function FormEditAccount() {
               <Pencil />
             </button>
           </label>
-        </div>
+        </div> */}
         <div className="flex flex-col justify-between flex-grow">
           <div className="flex gap-2">
             <div className="flex flex-col w-full">
@@ -153,7 +153,7 @@ export default function FormEditAccount() {
           </div>
         </div>
       </div>
-      <div className="flex flex-col w-full">
+      {/* <div className="flex flex-col w-full">
         <label htmlFor="username" className="px-2">
           Skill
         </label>
@@ -240,7 +240,7 @@ export default function FormEditAccount() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
       <button
         type="submit"
         className="bg-primary-darker hover:bg-primary text-white px-4 py-2 rounded-xl self-end"

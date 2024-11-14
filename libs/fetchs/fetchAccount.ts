@@ -18,3 +18,20 @@ export async function getAccount() {
     }
   } else return null;
 }
+
+export async function getAccountById(userId: string) {
+  const isAuth = await auth();
+  if (isAuth) {
+    try {
+      const response = await axiosInstance.get(`/users/${userId}`);
+
+      const account: User = response.data.data;
+
+      if (!account) return null;
+
+      return account;
+    } catch {
+      return null;
+    }
+  } else return null;
+}

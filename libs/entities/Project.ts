@@ -1,7 +1,7 @@
 export interface Post {
   id: string;
-  title: string | null;
-  content: string | null;
+  title: string;
+  content: string;
   user: { id: string; username: string; fullname: string };
   projectTags: { name: string }[];
   projectLinks: { url: string }[];

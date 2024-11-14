@@ -2,7 +2,6 @@
 import {
   MessageCircle as CommentIcon,
   EllipsisVertical,
-  Share2 as ShareIcon,
   StarIcon,
 } from "lucide-react";
 import Image from "next/image";
@@ -68,7 +67,7 @@ export default function PostCard({ data, user }: PostCardProps) {
 
             <div className="flex flex-col">
               <Link
-                href={`account?id=${data.user.id}`}
+                href={`account/${data.user.id}`}
                 draggable="false"
                 className="font-semibold"
               >
@@ -140,16 +139,10 @@ export default function PostCard({ data, user }: PostCardProps) {
                 />
                 <p>{likeCount}</p>
               </button>
-              <Link
-                href={`/gallery/${data.id}`}
-                className="flex gap-2 justify-center items-center"
-              >
+              <div className="flex gap-2 justify-center items-center">
                 <CommentIcon />
                 <p>{data._count.projectDiscussions}</p>
-              </Link>
-              <button className="flex gap-2 justify-center items-center">
-                <ShareIcon />
-              </button>
+              </div>
             </div>
             <div className="flex gap-2">
               {data.projectTags.map((tag, index) => (
@@ -162,13 +155,10 @@ export default function PostCard({ data, user }: PostCardProps) {
               ))}
             </div>
           </div>
-          <Link
-            href={`/gallery/${data.id}`}
-            className="flex flex-col w-full gap-2"
-          >
+          <div className="flex flex-col w-full gap-2">
             <p className="px-2 font-bold text-xl">{data.title}</p>
             <p className="px-2 line-clamp-2">{data.content}</p>
-          </Link>
+          </div>
         </div>
       </div>
       <Modal show={editPost} setShow={() => setEditPost(!editPost)}>

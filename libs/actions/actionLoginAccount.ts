@@ -24,7 +24,7 @@ export async function actionLoginAccount(formData: FormData) {
       modalService.showModal({
         message: "Login sukses!",
         type: "success",
-        link: "/",
+        link: "/gallery",
       });
     }
   } catch (e: any) {

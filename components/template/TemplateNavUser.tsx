@@ -13,6 +13,7 @@ import { useState } from "react";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import ItemPost from "../card/ItemPost";
+import { actionLogoutAccount } from "@/libs/actions/actionLogoutAccount";
 
 interface TemplateUserProps {
   children: React.ReactNode;
@@ -34,11 +35,14 @@ export default function TemplateNavUser({ children }: TemplateUserProps) {
   };
 
   const sidebars = [
-    { href: "/", Icon: HomeIcon, label: "Beranda" },
     { href: "/gallery", Icon: GalleryIcon, label: "Projek" },
-    { href: "/partner", Icon: PartnerIcon, label: "Rekan" },
+    // { href: "/partner", Icon: PartnerIcon, label: "Rekan" },
     { href: "/account", Icon: ProfileIcon, label: "Akun" },
   ];
+
+  const handleLogout = async () => {
+    if (await actionLogoutAccount()) window.location.reload();
+  };
   return (
     <>
       {/* sidebar */}
@@ -73,8 +77,8 @@ export default function TemplateNavUser({ children }: TemplateUserProps) {
                 ))}
               </div>
               <div className="flex gap-2">
-                <Link
-                  href={"/auth"}
+                <button
+                  onClick={handleLogout}
                   className={`flex gap-2 p-3 w-full rounded-lg self-start items-center justify-start ${
                     sidebar
                       ? "max-h-none"
@@ -83,7 +87,7 @@ export default function TemplateNavUser({ children }: TemplateUserProps) {
                   title="Logout"
                 >
                   <LogOutIcon className={`min-w-6 min-h-6`} />
-                </Link>
+                </button>
               </div>
             </div>
           </nav>
@@ -141,6 +145,7 @@ export default function TemplateNavUser({ children }: TemplateUserProps) {
               </div>
               <div className="flex flex-col w-full gap-2 pt-2">
                 <button
+                  onClick={handleLogout}
                   className={`flex gap-2 p-3 w-full rounded-lg self-start items-center justify-start ${
                     sidebar ? "max-w-none" : "max-w-12 min-w-12"
                   } text-white hover:bg-red-800`}

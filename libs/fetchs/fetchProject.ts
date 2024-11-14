@@ -15,6 +15,30 @@ export async function getProjectById(projectId: string) {
   }
 }
 
+export async function getNewestProjectByUserId(userId: string) {
+  try {
+    const response = await axiosInstance.get(`/projects`);
+
+    const project: Post[] = response.data.data;
+
+    if (project.length === 0 || project[0].id === undefined) return null;
+
+    const filteredDiscuss = project.filter((item) => item.user.id === userId);
+
+    if (filteredDiscuss.length === 0) return null;
+    else {
+      const sorteredDiscuss = filteredDiscuss.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
+
+      return sorteredDiscuss;
+    }
+  } catch {
+    return null;
+  }
+}
+
 export async function getNewestProject() {
   try {
     const response = await axiosInstance.get("/projects");

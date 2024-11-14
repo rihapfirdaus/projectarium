@@ -1,11 +1,16 @@
 "use server";
 import AccountSection from "@/components/section/AccountSection";
 import { Post } from "@/libs/entities/Project";
-import { getAccount, getAccountById } from "@/libs/fetchs/fetchAccount";
+import { getAccountById } from "@/libs/fetchs/fetchAccount";
 import { getNewestProjectByUserId } from "@/libs/fetchs/fetchProject";
 
-export default async function AccountUserPage() {
-  const user = (await getAccount()) || undefined;
+export default async function AccountPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  const { id } = await params;
+  const user = (await getAccountById(id)) || undefined;
 
   let project: Post[] = [];
   user != null && user != undefined
