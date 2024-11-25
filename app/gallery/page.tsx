@@ -1,6 +1,6 @@
 "use client";
-import GalleryCard from "@/components/card/GalleryCard";
-import FormPost from "@/components/form/FormPost";
+import ProjectCard from "@/components/card/ProjectCard";
+import FormProject from "@/components/form/FormProject";
 import { getAccount } from "@/libs/fetchs/fetchAccount";
 import { getNewestProject } from "@/libs/fetchs/fetchProject";
 import { searchPost } from "@/libs/services/SearchService";
@@ -42,13 +42,13 @@ export default function GalleryPage() {
             placeholder="Cari projek"
           />
         </form>
-        <FormPost user={user} />
+        <FormProject user={user} />
       </div>
 
       {filteredProjects.length > 0 && (
         <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-2 overflow-y-scroll">
           {filteredProjects.map((project, index) => (
-            <GalleryCard key={index} user={user} data={project} />
+            <ProjectCard key={index} user={user} data={project} />
           ))}
         </div>
       )}

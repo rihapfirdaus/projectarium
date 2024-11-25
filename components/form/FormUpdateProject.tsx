@@ -1,19 +1,19 @@
 "use client";
 
 import { actionUpdateProject } from "@/libs/actions/actionProject";
-import { Post } from "@/libs/entities/Project";
+import { Project } from "@/libs/entities/Project";
 import { User } from "@/libs/entities/User";
 import { modalService } from "@/libs/services/ModalService";
 import { Hash, ImageIcon, Link, Plus, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
-interface FormEditPostProps {
-  data: Post;
+interface FormEditProjectProps {
+  data: Project;
   user: User | undefined;
 }
 
-export default function FormEditPost({ data, user }: FormEditPostProps) {
+export default function FormEditProject({ data, user }: FormEditProjectProps) {
   const [title, setTitle] = useState<string>(data.title || "");
   const [content, setContent] = useState<string>(data.content || "");
   // const [links, setLinks] = useState<string[]>(

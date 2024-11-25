@@ -1,10 +1,10 @@
-import { Post } from "@/libs/entities/Project";
+import { Project } from "@/libs/entities/Project";
 
 import Image from "next/image";
 import Link from "next/link";
 
 interface ItemPostProps {
-  data: Post;
+  data: Project;
 }
 
 export default function ItemPost({ data }: ItemPostProps) {

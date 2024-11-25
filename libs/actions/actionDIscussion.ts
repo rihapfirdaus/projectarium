@@ -19,11 +19,12 @@ export async function actionUploadReply(formData: FormData) {
       comment: formData.get("comment"),
     };
 
-    // if () {
-    replyRequest = {
-      comment: `@${formData.get("username")} ${formData.get("comment")}`,
-    };
-    // }
+    if (formData.get("username")) {
+      replyRequest = {
+        comment: `@${formData.get("username")} ${formData.get("comment")}`,
+      };
+    }
+
     await axiosInstance.post(
       `/discussions/projects/${formData.get("discussId")}/reply`,
       replyRequest

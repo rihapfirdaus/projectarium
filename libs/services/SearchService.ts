@@ -1,7 +1,7 @@
-import { Post } from "../entities/Project";
+import { Project } from "../entities/Project";
 
 export function searchPost(data: any[], query: string): any[] {
-  let filteredData: Post[] = data;
+  let filteredData: Project[] = data;
 
   if (query) {
     filteredData = filteredData.filter(

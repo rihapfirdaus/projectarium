@@ -7,11 +7,11 @@ import { Hash, ImageIcon, Link, Plus, Trash2, X } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
 
-interface FormPostProps {
+interface FormProjectProps {
   user: User | undefined;
 }
 
-export default function FormPost({ user }: FormPostProps) {
+export default function FormProject({ user }: FormProjectProps) {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
 

@@ -1,11 +1,11 @@
 "use client";
-import { Post } from "@/libs/entities/Project";
+import { Project } from "@/libs/entities/Project";
 import { User } from "@/libs/entities/User";
 import DiscussSection from "../section/DiscussSection";
 import PostCard from "../card/PostCard";
 
 interface TemplateDetailProjectProps {
-  data: Post;
+  data: Project;
   user: User | undefined;
   discuss: any[];
 }

@@ -6,13 +6,13 @@ import Modal from "../custom/Modal";
 import FormEditAccount from "../form/FormUpdateProfil";
 import { Link, UserRoundPen } from "lucide-react";
 import { User } from "@/libs/entities/User";
-import { Post } from "@/libs/entities/Project";
+import { Project } from "@/libs/entities/Project";
 import UserGalleryCard from "../card/UserGalleryCard";
-import GalleryCard from "../card/GalleryCard";
+import ProjectCard from "../card/ProjectCard";
 
 interface AccountSectionProps {
   account: User | undefined;
-  project: Post[];
+  project: Project[];
 }
 
 export default function AccountSection({
@@ -125,7 +125,7 @@ export default function AccountSection({
             </div>
             <div className="grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-2 overflow-y-scroll">
               {project.map((item, index) => (
-                <GalleryCard user={account} key={index} data={item} />
+                <ProjectCard user={account} key={index} data={item} />
               ))}
             </div>
           </div>

@@ -3,14 +3,14 @@ import {
   actionDislikeProject,
   actionLikeProject,
 } from "@/libs/actions/actionProject";
-import { Post } from "@/libs/entities/Project";
+import { Project } from "@/libs/entities/Project";
 import { MessageCircle as CommentIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
 interface UserGalleryCardProps {
-  data: Post;
+  data: Project;
 }
 
 export default function UserGalleryCard({ data }: UserGalleryCardProps) {

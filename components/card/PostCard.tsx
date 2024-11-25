@@ -9,8 +9,8 @@ import Link from "next/link";
 import Dropdown from "../navigation/Dropdown";
 import { useState } from "react";
 import Modal from "../custom/Modal";
-import FormEditPost from "../form/FormUpdatePost";
-import { Post } from "@/libs/entities/Project";
+import FormEditProject from "../form/FormUpdateProject";
+import { Project } from "@/libs/entities/Project";
 import { formatDateTime } from "@/libs/helpers/formatter/dateFormatter";
 import { User } from "@/libs/entities/User";
 import {
@@ -20,7 +20,7 @@ import {
 } from "@/libs/actions/actionProject";
 
 interface PostCardProps {
-  data: Post;
+  data: Project;
   user: User | undefined;
 }
 
@@ -162,7 +162,7 @@ export default function PostCard({ data, user }: PostCardProps) {
         </div>
       </div>
       <Modal show={editPost} setShow={() => setEditPost(!editPost)}>
-        <FormEditPost data={data} user={user} />
+        <FormEditProject data={data} user={user} />
       </Modal>
     </>
   );

@@ -11,19 +11,20 @@ export async function getNewestDiscuss(projectId: string) {
 
     if (discuss.length === 0 || discuss[0].id === undefined) return null;
 
-    const filteredDiscuss = discuss.filter(
-      (item) => item.projectId === projectId
-    );
+    // const filteredDiscuss = discuss.filter(
+    //   (item) => item.projectId === projectId
+    // );
 
-    if (filteredDiscuss.length === 0) return null;
-    else {
-      const sorteredDiscuss = filteredDiscuss.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-      );
+    // if (filteredDiscuss.length === 0) return null;
+    // else {
+    //   const sorteredDiscuss = filteredDiscuss.sort(
+    //     (a, b) =>
+    //       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    //   );
 
-      return sorteredDiscuss;
-    }
+    //   return sorteredDiscuss;
+    // }
+    return discuss;
   } catch {
     return null;
   }
