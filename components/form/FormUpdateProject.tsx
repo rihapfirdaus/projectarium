@@ -97,11 +97,11 @@ export default function FormEditProject({ data, user }: FormEditProjectProps) {
         message: "Tambahkan minimal 2 tag!",
         type: "info",
       });
-    } else if (selectedImages.length === 0) {
-      modalService.showModal({
-        message: "Tambahkan gambar untuk postingan!",
-        type: "info",
-      });
+      // } else if (selectedImages.length === 0) {
+      //   modalService.showModal({
+      //     message: "Tambahkan gambar untuk postingan!",
+      //     type: "info",
+      //   });
     } else {
       if (user) {
         const formData = new FormData();
@@ -110,7 +110,7 @@ export default function FormEditProject({ data, user }: FormEditProjectProps) {
         formData.append("userId", user.id);
         tags.forEach((tag) => formData.append("projectTags", tag));
         // links.forEach((link) => formData.append("projectLinks", link));
-        selectedImages.forEach((image) => formData.append("images", image));
+        // selectedImages.forEach((image) => formData.append("images", image));
 
         console.log(formData);
         await actionUpdateProject(data.id, formData);
@@ -234,7 +234,7 @@ export default function FormEditProject({ data, user }: FormEditProjectProps) {
             </div>
           </div> */}
 
-          <div className="flex flex-col w-full">
+          {/* <div className="flex flex-col w-full">
             <label htmlFor="images" className="px-2">
               Gambar
             </label>
@@ -275,7 +275,7 @@ export default function FormEditProject({ data, user }: FormEditProjectProps) {
                 className="hidden"
               />
             </div>
-          </div>
+          </div> */}
         </div>
 
         <div className="flex self-end gap-4">
