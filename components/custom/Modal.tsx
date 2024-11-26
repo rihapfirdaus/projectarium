@@ -20,7 +20,7 @@ export default function Modal({ children, show, setShow }: ModalProps) {
           onClick={() => handleHideModal()}
         >
           <div
-            className="flex flex-col justify-center items-center font-bold bg-secondary bg-opacity-85 bg-cover bg-center rounded-3xl min-h-64 shadow-xl relative gap-4 border-2 p-8 my-2 transition-opacity duration-75 backdrop-blur-sm"
+            className="flex flex-col justify-center items-center bg-secondary bg-opacity-85 bg-cover bg-center rounded-3xl min-h-64 shadow-xl relative gap-4 border-2 p-8 my-2 transition-opacity duration-75 backdrop-blur-sm"
             onClick={(e) => e.stopPropagation()}
           >
             <div

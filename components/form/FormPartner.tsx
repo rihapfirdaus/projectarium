@@ -35,38 +35,25 @@ export default function FormPartner({ user }: FormProjectProps) {
     setTags(tags.filter((_, i) => i !== index));
   };
 
-  // const handleRemoveLink = (index: number) => {
-  //   links.length === 1
-  //     ? setLinks([{ name: "", link: "" }])
-  //     : setLinks(links.filter((_, i) => i !== index));
-  // };
-
   const handleUploadPost = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (tags.length < 2) {
-      modalService.showModal({
-        message: "Tambahkan minimal 2 tag!",
-        type: "info",
-      });
-    } else {
-      if (user) {
-        const partnerRequest = {
-          title: title,
-          content: content,
-          userId: user.id,
-          partnerTags: tags,
-          validUntil: validUntil,
-        };
+    if (user) {
+      const partnerRequest = {
+        title: title,
+        content: content,
+        userId: user.id,
+        partnerTags: tags,
+        validUntil: validUntil,
+      };
 
-        await actionUploadPartner(partnerRequest);
-      } else {
-        modalService.showModal({
-          message: "Anda belum login!\nSilakan login terlebih dahulu",
-          type: "error",
-          link: "/auth",
-        });
-      }
+      await actionUploadPartner(partnerRequest);
+    } else {
+      modalService.showModal({
+        message: "Anda belum login!\nSilakan login terlebih dahulu",
+        type: "error",
+        link: "/auth",
+      });
     }
   };
 
@@ -133,7 +120,7 @@ export default function FormPartner({ user }: FormProjectProps) {
                     value={inputTags}
                     onChange={handleTagChange}
                     className="flex-grow p-2 border-none outline-none bg-transparent"
-                    required={tags.length < 2}
+                    required={tags.length < 1}
                   />
                 </div>
               )}

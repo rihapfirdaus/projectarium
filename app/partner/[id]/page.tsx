@@ -1,26 +1,26 @@
 "use server";
-import { getProjectById } from "@/libs/fetchs/fetchProject";
+import { getPartnerById } from "@/libs/fetchs/fetchPartner";
 import { modalService } from "@/libs/services/ModalService";
 import { ErrorMessage } from "@/libs/entities/Error";
 import { getAccount } from "@/libs/fetchs/fetchAccount";
 import { getNewestDiscuss } from "@/libs/fetchs/fetchDiscuss";
 import TemplateDetail from "@/components/template/TemplateDetail";
 
-export default async function ProjectDetail({
+export default async function PartnerDetail({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
   const user = (await getAccount()) || undefined;
-  const project = await getProjectById(id);
-  const discuss = (await getNewestDiscuss(id, "project")) || [];
+  const partner = await getPartnerById(id);
+  const discuss = (await getNewestDiscuss(id, "partner")) || [];
 
-  if (project) {
+  if (partner) {
     return (
       <TemplateDetail
-        type="project"
-        data={project}
+        type="partner"
+        data={partner}
         discuss={discuss}
         user={user}
       />

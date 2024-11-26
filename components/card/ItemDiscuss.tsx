@@ -1,33 +1,38 @@
 "use client";
+import { actionDeleteDiscussion } from "@/libs/actions/actionDiscussion";
 import { Discuss } from "@/libs/entities/Discuss";
+import { User } from "@/libs/entities/User";
 import { formatDateTime } from "@/libs/helpers/formatter/dateFormatter";
-import Image from "next/image";
+import { Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
 interface DiscussItem {
+  user: User | undefined;
+  type: "project" | "partner";
   data: Discuss;
   setReplies: (discussId: string, username: string, isReply: boolean) => void;
 }
 
-export default function ItemDiscuss({ data, setReplies }: DiscussItem) {
+export default function ItemDiscuss({
+  user,
+  type,
+  data,
+  setReplies,
+}: DiscussItem) {
   const [showReply, setShowReply] = useState(false);
+
+  const handleRemove = async () => {
+    await actionDeleteDiscussion(data.id, type);
+    window.location.reload();
+  };
 
   return (
     <div className="flex flex-col">
       <div
         className={`flex flex-col gap-2 px-4 py-4 select-none max-h-[36rem]`}
       >
-        <div className="flex items-center gap-2">
-          <Image
-            draggable="false"
-            className="rounded-full w-10 h-10"
-            src={"/blank_profile.png"}
-            alt="profile image"
-            width={100}
-            height={100}
-          />
-
+        <div className="flex items-center justify-between gap-2">
           <div className="flex flex-col">
             <Link href={`profile`} draggable="false" className="font-semibold">
               {data.user.fullname}
@@ -36,6 +41,15 @@ export default function ItemDiscuss({ data, setReplies }: DiscussItem) {
               {formatDateTime(data.createdAt).date}
             </p>
           </div>
+          {user != undefined && data.user.id === user.id && (
+            <button
+              type="button"
+              onClick={handleRemove}
+              className="text-secondary-darker hover:text-red-800"
+            >
+              <Trash2 />
+            </button>
+          )}
         </div>
 
         <p className="line-clamp-2">{data.comment}</p>
@@ -65,26 +79,17 @@ export default function ItemDiscuss({ data, setReplies }: DiscussItem) {
             key={index}
             className="flex flex-col gap-2 px-4 py-4 select-none max-h-[36rem] ml-8 border-l-4 border-primary-darker"
           >
-            <div className="flex items-center gap-2">
-              <Image
-                draggable="false"
-                className="rounded-full w-10 h-10"
-                src={"/blank_profile.png"}
-                alt="profile image"
-                width={100}
-                height={100}
-              />
-
+            <div className="flex items-center gap-2 justify-between">
               <div className="flex flex-col">
                 <Link
                   href={`profile`}
                   draggable="false"
                   className="font-semibold"
                 >
-                  {data.user.fullname}
+                  {reply.user.fullname}
                 </Link>
                 <p className="self-end text-sm">
-                  {formatDateTime(data.createdAt).date}
+                  {formatDateTime(reply.createdAt).date}
                 </p>
               </div>
             </div>

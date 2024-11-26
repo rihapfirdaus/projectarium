@@ -29,6 +29,7 @@ export async function actionLoginAccount(formData: FormData) {
     }
   } catch (e: any) {
     loadingService.hideLoading();
+    console.log(e);
     if (e.status === 404 || e.status === 401 || e.status === 400) {
       modalService.showModal({
         message: "Email/Kata Sandi Anda salah.",

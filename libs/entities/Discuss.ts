@@ -8,6 +8,7 @@ export interface Discuss {
   user: User;
   replies: [
     {
+      createdAt: string;
       comment: string;
       user: { id: string; username: string; fullname: string };
     }

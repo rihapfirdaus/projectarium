@@ -1,10 +1,13 @@
 import axiosInstance from "@/utils/axiosInstance";
 import { Discuss } from "../entities/Discuss";
 
-export async function getNewestDiscuss(projectId: string) {
+export async function getNewestDiscuss(
+  postId: string,
+  type: "project" | "partner"
+) {
   try {
     const response = await axiosInstance.get(
-      `/discussions/projects?project_id=${projectId}`
+      `/discussions/${type}s?${type}_id=${postId}`
     );
 
     const discuss: Discuss[] = response.data.data;

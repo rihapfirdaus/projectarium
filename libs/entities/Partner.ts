@@ -6,7 +6,7 @@ export interface Partner {
   user: { id: string; username: string; fullname: string };
   partnerTags: { name: string }[];
   partnerLinks: { url: string }[];
-  _count: { partnerLikes: number; partnerDiscussion: number };
+  _count: { partnerLikes: number; partnerDiscussions: number };
   createdAt: string;
   isLiked: boolean;
 }

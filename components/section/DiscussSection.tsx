@@ -3,7 +3,7 @@ import { modalService } from "@/libs/services/ModalService";
 import {
   actionUploadDiscussion,
   actionUploadReply,
-} from "@/libs/actions/actionDIscussion";
+} from "@/libs/actions/actionDiscussion";
 import { useState } from "react";
 import { User } from "@/libs/entities/User";
 import ItemDiscuss from "../card/ItemDiscuss";
@@ -12,6 +12,7 @@ import Image from "next/image";
 interface DiscussSectionProps {
   id: string;
   user: User | undefined;
+  type: "project" | "partner";
   discuss: any[];
   data: any;
 }
@@ -20,6 +21,7 @@ export default function DiscussSection({
   user,
   discuss,
   data,
+  type,
 }: DiscussSectionProps) {
   const [comment, setComment] = useState<string>("");
   const [replies, setReplies] = useState<
@@ -49,13 +51,13 @@ export default function DiscussSection({
       if (replies?.isReply) {
         formData.append("username", replies.username);
         formData.append("discussId", replies.discussId);
-        await actionUploadReply(formData);
+        await actionUploadReply(formData, type);
       } else if (replies) {
         formData.append("discussId", replies.discussId);
-        await actionUploadReply(formData);
+        await actionUploadReply(formData, type);
       } else {
-        formData.append("projectId", data.id);
-        await actionUploadDiscussion(formData);
+        formData.append(`${type}Id`, data.id);
+        await actionUploadDiscussion(formData, type);
       }
       window.location.reload();
     }
@@ -117,7 +119,9 @@ export default function DiscussSection({
             {discuss.map((item, index) => (
               <ItemDiscuss
                 key={index}
+                type={type}
                 data={item}
+                user={user}
                 setReplies={(
                   discussId: string,
                   username: string,

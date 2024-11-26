@@ -70,7 +70,7 @@ export async function getPopularProject() {
       (a, b) => b._count.projectLikes - a._count.projectLikes
     );
 
-    return filteredProjects.slice(0, 3);
+    return filteredProjects.slice(0, 5);
   } catch {
     return null;
   }

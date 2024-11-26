@@ -4,7 +4,6 @@ import LoadingProvider from "@/components/provider/LoadingProvider";
 import ModalProvider from "@/components/provider/ModalProvider";
 import TemplateNavChecker from "@/components/template/TemplateNavChecker";
 import { Homemade_Apple } from "next/font/google";
-import { getPopularProject } from "@/libs/fetchs/fetchProject";
 
 const homemadeApple = Homemade_Apple({
   weight: "400",
@@ -24,15 +23,12 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const popularProject = (await getPopularProject()) || [];
   return (
     <html lang="in" translate="no">
       <body className={`${homemadeApple.variable}`}>
         <LoadingProvider>
           <ModalProvider>
-            <TemplateNavChecker data={popularProject}>
-              {children}
-            </TemplateNavChecker>
+            <TemplateNavChecker>{children}</TemplateNavChecker>
           </ModalProvider>
         </LoadingProvider>
       </body>

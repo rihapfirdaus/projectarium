@@ -28,18 +28,13 @@ export async function actionUploadPartner(partnerRequest: any) {
 
 export async function actionUpdatePartner(
   partnerId: string,
-  formData: FormData
+  partnerRequest: any
 ) {
   loadingService.showLoading();
   try {
     const { status } = await axiosInstance.put(
       `/partners/${partnerId}`,
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      }
+      partnerRequest
     );
 
     if (status === 200) {
@@ -74,7 +69,7 @@ export async function actionDeletePartner(partnerId: string) {
         modalService.showModal({
           message: "Postingan terhapus!",
           type: "success",
-          link: "/gallery",
+          link: "/partner",
         });
       }
     } catch (e: any) {
