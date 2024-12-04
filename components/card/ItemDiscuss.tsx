@@ -22,9 +22,9 @@ export default function ItemDiscuss({
 }: DiscussItem) {
   const [showReply, setShowReply] = useState(false);
 
-  const handleRemove = async () => {
-    await actionDeleteDiscussion(data.id, type);
-    window.location.reload();
+  const handleRemove = async (discussId?: string) => {
+    await actionDeleteDiscussion(discussId || data.id, type);
+    // window.location.reload();
   };
 
   return (
@@ -44,7 +44,7 @@ export default function ItemDiscuss({
           {user != undefined && data.user.id === user.id && (
             <button
               type="button"
-              onClick={handleRemove}
+              onClick={() => handleRemove()}
               className="text-secondary-darker hover:text-red-800"
             >
               <Trash2 />
@@ -67,7 +67,9 @@ export default function ItemDiscuss({
               onClick={() => setShowReply(!showReply)}
               className="text-primary-darker font-semibold"
             >
-              {showReply ? "Sembunyikan balasan" : "Tampilkan balasan"}
+              {showReply
+                ? "Sembunyikan balasan"
+                : `Tampilkan ${data.replies.length} balasan`}
             </button>
           )}
         </div>
@@ -79,7 +81,7 @@ export default function ItemDiscuss({
             key={index}
             className="flex flex-col gap-2 px-4 py-4 select-none max-h-[36rem] ml-8 border-l-4 border-primary-darker"
           >
-            <div className="flex items-center gap-2 justify-between">
+            <div className="flex items-center justify-between gap-2">
               <div className="flex flex-col">
                 <Link
                   href={`profile`}
@@ -92,6 +94,15 @@ export default function ItemDiscuss({
                   {formatDateTime(reply.createdAt).date}
                 </p>
               </div>
+              {user != undefined && reply.user.id === user.id && (
+                <button
+                  type="button"
+                  onClick={() => handleRemove(reply.id)}
+                  className="text-secondary-darker hover:text-red-800"
+                >
+                  <Trash2 />
+                </button>
+              )}
             </div>
 
             <p className="line-clamp-2">{reply.comment}</p>

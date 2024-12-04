@@ -29,7 +29,7 @@ export default async function ProjectDetail({
     modalService.showModal({
       message: ErrorMessage.NotFound,
       type: "error",
-      link: "/gallery",
+      link: "/",
     });
 
     return <></>;

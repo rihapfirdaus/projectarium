@@ -23,9 +23,10 @@ export default function FormEditAccount({ user }: FormEditAccountProps) {
         fullname: fullname,
         username: username,
         bio: bio,
+        birthdate: user.birthdate,
       };
 
-      await actionUpdateAccount(user.id, accountRequest);
+      await actionUpdateAccount(accountRequest);
     } else {
       modalService.showModal({
         message: "Anda belum login! Silakan login terlebih dahulu",

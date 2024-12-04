@@ -3,14 +3,11 @@ import { loadingService } from "../services/LoadingService";
 import { modalService } from "../services/ModalService";
 import { ErrorMessage } from "../entities/Error";
 
-export async function actionUpdateAccount(
-  accountId: string,
-  accountRequest: any
-) {
+export async function actionUpdateAccount(accountRequest: any) {
   loadingService.showLoading();
   try {
     const { status } = await axiosInstance.put(
-      `/users/${accountId}`,
+      `/users/profile`,
       accountRequest
     );
 

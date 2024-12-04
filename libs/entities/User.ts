@@ -3,6 +3,7 @@ export interface User {
   username: string;
   fullname: string;
   birthdate: string;
+  password: string;
   bio: string | null;
   createdAt: string;
 }

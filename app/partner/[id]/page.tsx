@@ -29,7 +29,7 @@ export default async function PartnerDetail({
     modalService.showModal({
       message: ErrorMessage.NotFound,
       type: "error",
-      link: "/gallery",
+      link: "/",
     });
 
     return <></>;

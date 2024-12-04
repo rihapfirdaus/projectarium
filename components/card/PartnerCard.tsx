@@ -183,6 +183,12 @@ export default function PartnerCard({
               ))}
           </Link>
 
+          {size === "base" && (
+            <p className="text-sm text-end">
+              reqruitment dibuka hingga: {formatDateTime(data.validUntil).date}
+            </p>
+          )}
+
           <div className="flex gap-4">
             <button
               type="button"

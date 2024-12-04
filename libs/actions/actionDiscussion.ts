@@ -18,7 +18,7 @@ export async function actionUploadDiscussion(
     } else {
       const discussionRequest = {
         comment: formData.get("comment"),
-        discussId: formData.get("discussId"),
+        partnerId: formData.get("partnerId"),
       };
 
       const response = await axiosInstance.post(

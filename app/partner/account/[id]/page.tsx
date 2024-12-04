@@ -43,7 +43,7 @@ export default async function AccountPage({
             {"@" + account.username}
           </p>
           {account.bio && <p>{account.bio}</p>}
-          {/* {isMe && user != null && <FormEditAccount user={user} />} */}
+          {isMe && user != null && <FormEditAccount user={user} />}
         </div>
 
         {myProjects.length > 0 && (
