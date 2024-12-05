@@ -72,15 +72,10 @@ export async function actionDeleteDiscussion(
       );
 
       if (status === 200) {
-        loadingService.hideLoading();
-        modalService.showModal({
-          message: "Diskusi terhapus!",
-          type: "success",
-        });
+        window.location.reload();
       }
     } catch (e: any) {
       loadingService.hideLoading();
-      console.error(e);
 
       modalService.showModal({ message: ErrorMessage.System, type: "error" });
     }

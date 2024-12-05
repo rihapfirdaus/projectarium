@@ -24,7 +24,6 @@ export default function ItemDiscuss({
 
   const handleRemove = async (discussId?: string) => {
     await actionDeleteDiscussion(discussId || data.id, type);
-    window.location.reload();
   };
 
   return (

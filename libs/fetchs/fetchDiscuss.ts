@@ -13,21 +13,14 @@ export async function getNewestDiscuss(
     const discuss: Discuss[] = response.data.data;
 
     if (discuss.length === 0 || discuss[0].id === undefined) return null;
+    else {
+      const sorteredDiscuss = discuss.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      );
 
-    // const filteredDiscuss = discuss.filter(
-    //   (item) => item.projectId === projectId
-    // );
-
-    // if (filteredDiscuss.length === 0) return null;
-    // else {
-    //   const sorteredDiscuss = filteredDiscuss.sort(
-    //     (a, b) =>
-    //       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
-    //   );
-
-    //   return sorteredDiscuss;
-    // }
-    return discuss;
+      return sorteredDiscuss;
+    }
   } catch {
     return null;
   }
