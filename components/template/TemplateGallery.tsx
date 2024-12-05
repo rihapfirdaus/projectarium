@@ -30,7 +30,7 @@ export default function GalleryPage({
   const [filteredData, setFilteredData] = useState<any[]>(data);
 
   useEffect(() => {
-    const filtered = searchPost(data, query);
+    const filtered = searchPost(data, query, type);
     setFilteredData(filtered);
   }, [query]);
 
