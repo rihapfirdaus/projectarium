@@ -149,8 +149,8 @@ export default function ProjectCard({
                   draggable="false"
                   className={`rounded-2xl ${
                     data.projectImages.length === 1
-                      ? "flex-grow object-cover w-full max-h-[calc(100vh-32rem)]"
-                      : "object-cover w-[calc(100%-4rem)] max-h-[calc(100vh-32rem)]"
+                      ? "flex-grow object-cover w-full max-h-[calc(100vh-12rem)]"
+                      : "object-cover w-[calc(100%-4rem)] max-h-[calc(100vh-12rem)]"
                   }`}
                   src={image.imageUrl}
                   alt="project image"
