@@ -174,7 +174,7 @@ export default function ProjectCard({
                 />
               ))
             ) : (
-              <img
+              <Image
                 draggable="false"
                 className={`rounded-2xl object-cover w-full max-h-[10rem]`}
                 src={data.projectImages[0].imageUrl}
