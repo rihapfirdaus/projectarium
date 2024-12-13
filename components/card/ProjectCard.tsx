@@ -155,7 +155,7 @@ export default function ProjectCard({
           )}
         </div>
 
-        <div className={`flex flex-col gap-2`} title={data.title}>
+        <div className={`flex flex-col flex-grow-0 gap-2`} title={data.title}>
           <div className="flex gap-2 overflow-x-scroll">
             {size === "base" ? (
               data.projectImages.map((image, index) => (
@@ -176,7 +176,7 @@ export default function ProjectCard({
             ) : (
               <Image
                 draggable="false"
-                className={`rounded-2xl object-cover w-full max-h-[10rem]`}
+                className={`rounded-2xl object-cover w-full max-h-[10rem] h-[10rem]`}
                 src={data.projectImages[0].imageUrl}
                 alt="project image"
                 width={500}
@@ -185,7 +185,7 @@ export default function ProjectCard({
             )}
           </div>
 
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-grow-0">
             <button
               type="button"
               onClick={liked ? handleDislike : handleLike}
@@ -210,12 +210,12 @@ export default function ProjectCard({
             }
             className={`flex flex-col gap-2`}
           >
-            <div className="flex flex-col gap-2 flex-grow">
+            <div className="flex flex-col h-full flex-grow gap-2">
               <p className="font-bold text-lg line-clamp-1">
                 {capitalizeEachWord(data.title)}
               </p>
               <p
-                className={`text-start flex-grow ${
+                className={`text-start flex-grow${
                   data.projectTags.length > 0 ? "line-clamp-1" : "line-clamp-3"
                 }`}
               >
