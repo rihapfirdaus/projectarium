@@ -13,7 +13,7 @@ import {
   getNewestProjectByUserId,
   getPopularProject,
 } from "@/libs/fetchs/fetchProject";
-import { capitalizeEachWord } from "@/libs/helpers/formatter/stringFormatter";
+import { capitalizeFirstWord } from "@/libs/helpers/formatter/stringFormatter";
 
 export default async function AccountPage({
   params,
@@ -37,7 +37,7 @@ export default async function AccountPage({
       <div className="py-2 flex flex-col gap-2 divide-y">
         <div>
           <h2 className="text-primary-darker font-bold text-3xl">
-            {capitalizeEachWord(account.fullname)}
+            {capitalizeFirstWord(account.fullname)}
           </h2>
           <p className="text-base font-normal text-black">
             {"@" + account.username}
@@ -51,7 +51,7 @@ export default async function AccountPage({
             title={
               isMe
                 ? "Proyek Anda"
-                : "Proyek " + capitalizeEachWord(account.fullname)
+                : "Proyek " + capitalizeFirstWord(account.fullname)
             }
             user={user}
             data={myProjects}
@@ -65,7 +65,7 @@ export default async function AccountPage({
             title={
               isMe
                 ? "Reqruitment Anda"
-                : "Reqruitment " + capitalizeEachWord(account.fullname)
+                : "Reqruitment " + capitalizeFirstWord(account.fullname)
             }
             user={user}
             data={myPartners}

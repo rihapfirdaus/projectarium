@@ -19,7 +19,7 @@ import { useState } from "react";
 import Dropdown from "../navigation/Dropdown";
 import Modal from "../custom/Modal";
 import FormEditProject from "../form/FormUpdateProject";
-import { capitalizeEachWord } from "@/libs/helpers/formatter/stringFormatter";
+import { capitalizeFirstWord } from "@/libs/helpers/formatter/stringFormatter";
 
 interface ProjectCard {
   data: Project;
@@ -208,11 +208,13 @@ export default function ProjectCard({
             onClick={(e: React.MouseEvent) =>
               size === "base" && e.preventDefault()
             }
-            className={`flex flex-col gap-2`}
+            className={`flex flex-col gap-2 ${
+              size === "base" && "cursor-default"
+            }`}
           >
             <div className="flex flex-col h-full flex-grow gap-2">
               <p className="font-bold text-lg line-clamp-1">
-                {capitalizeEachWord(data.title)}
+                {capitalizeFirstWord(data.title)}
               </p>
               <p
                 className={`text-start flex-grow${

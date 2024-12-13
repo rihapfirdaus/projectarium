@@ -18,7 +18,7 @@ import Link from "next/link";
 import { useState } from "react";
 import Dropdown from "../navigation/Dropdown";
 import Modal from "../custom/Modal";
-import { capitalizeEachWord } from "@/libs/helpers/formatter/stringFormatter";
+import { capitalizeFirstWord } from "@/libs/helpers/formatter/stringFormatter";
 import FormEditPartner from "../form/FormUpdatePartner";
 
 interface PartnerCard {
@@ -101,7 +101,7 @@ export default function PartnerCard({
               data.partnerTags.length > 0 ? "line-clamp-1" : "line-clamp-3"
             }`}
           >
-            {capitalizeEachWord(data.title)}
+            {capitalizeFirstWord(data.title)}
           </p>
 
           {data.partnerTags.length > 0 && (
@@ -181,10 +181,12 @@ export default function PartnerCard({
             onClick={(e: React.MouseEvent) =>
               size === "base" && e.preventDefault()
             }
-            className="flex flex-col gap-2 flex-grow"
+            className={`flex flex-col gap-2 flex-grow ${
+              size === "base" && "cursor-default"
+            }`}
           >
             <p className="font-bold text-lg line-clamp-1">
-              {capitalizeEachWord(data.title)}
+              {capitalizeFirstWord(data.title)}
             </p>
             <p
               className={`text-start flex-grow ${
