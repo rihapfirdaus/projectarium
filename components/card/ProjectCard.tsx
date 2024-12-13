@@ -101,22 +101,37 @@ export default function ProjectCard({
         } ${className}`}
       >
         <div className="flex items-center justify-between">
-          <Link
-            href={`/partner/account/${data.user.id}`}
-            className="flex flex-col"
-            title={data.user.fullname}
-          >
-            <div
-              draggable="false"
-              className="font-semibold text-xl text-primary-darker"
-            >
-              {data.user.fullname.split(" ").pop()}
-              <span className="text-sm text-black font-normal">
-                {"@" + data.user.username}
-              </span>
+          {user?.id === data.user.id ? (
+            <div className="flex flex-col" title={data.user.fullname}>
+              <div
+                draggable="false"
+                className="font-semibold text-xl text-primary-darker"
+              >
+                {data.user.fullname.split(" ").pop()}
+                <span className="text-sm text-black font-normal">
+                  {"@" + data.user.username}
+                </span>
+              </div>
+              <p className="text-sm">{formatDateTime(data.createdAt).date}</p>
             </div>
-            <p className="text-sm">{formatDateTime(data.createdAt).date}</p>
-          </Link>
+          ) : (
+            <Link
+              href={`/partner/account/${data.user.id}`}
+              className="flex flex-col"
+              title={data.user.fullname}
+            >
+              <div
+                draggable="false"
+                className="font-semibold text-xl text-primary-darker"
+              >
+                {data.user.fullname.split(" ").pop()}
+                <span className="text-sm text-black font-normal">
+                  {"@" + data.user.username}
+                </span>
+              </div>
+              <p className="text-sm">{formatDateTime(data.createdAt).date}</p>
+            </Link>
+          )}
           {size === "base" && user && user.username === data.user.username && (
             <Dropdown>
               <button className="w-10 h-10">
@@ -154,18 +169,18 @@ export default function ProjectCard({
                   }`}
                   src={image.imageUrl}
                   alt="project image"
-                  width={1920}
-                  height={1080}
+                  width={500}
+                  height={500}
                 />
               ))
             ) : (
-              <Image
+              <img
                 draggable="false"
                 className={`rounded-2xl object-cover w-full max-h-[10rem]`}
                 src={data.projectImages[0].imageUrl}
                 alt="project image"
-                width={1920}
-                height={1080}
+                width={500}
+                height={500}
               />
             )}
           </div>

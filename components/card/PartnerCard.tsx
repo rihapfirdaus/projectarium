@@ -61,22 +61,37 @@ export default function PartnerCard({
   if (size === "list")
     return (
       <div className="flex flex-col p-2 gap-2 bg-white w-full select-none max-w-96 rounded-xl border shadow ">
-        <Link
-          href={`/partner/account/${data.user.id}`}
-          className="flex flex-col"
-          title={data.user.fullname}
-        >
-          <div
-            draggable="false"
-            className="font-semibold text-xl text-primary-darker"
+        {user?.id === data.user.id ? (
+          <Link
+            href={`/partner/account/${data.user.id}`}
+            className="flex flex-col"
+            title={data.user.fullname}
           >
-            {data.user.fullname.split(" ").pop()}
-            <span className="text-sm text-black font-normal">
-              {"@" + data.user.username}
-            </span>
+            <div
+              draggable="false"
+              className="font-semibold text-xl text-primary-darker"
+            >
+              {data.user.fullname.split(" ").pop()}
+              <span className="text-sm text-black font-normal">
+                {"@" + data.user.username}
+              </span>
+            </div>
+            <p className="text-sm">{formatDateTime(data.createdAt).date}</p>
+          </Link>
+        ) : (
+          <div className="flex flex-col" title={data.user.fullname}>
+            <div
+              draggable="false"
+              className="font-semibold text-xl text-primary-darker"
+            >
+              {data.user.fullname.split(" ").pop()}
+              <span className="text-sm text-black font-normal">
+                {"@" + data.user.username}
+              </span>
+            </div>
+            <p className="text-sm">{formatDateTime(data.createdAt).date}</p>
           </div>
-          <p className="text-sm">{formatDateTime(data.createdAt).date}</p>
-        </Link>
+        )}
         <Link
           href={`/partner/${data.id}`}
           className="flex flex-col gap-2 justify-center"
@@ -106,22 +121,37 @@ export default function PartnerCard({
         }`}
       >
         <div className="flex items-center justify-between">
-          <Link
-            href={`/partner/account/${data.user.id}`}
-            className="flex flex-col"
-            title={data.user.fullname}
-          >
-            <div
-              draggable="false"
-              className="font-semibold text-xl text-primary-darker"
-            >
-              {data.user.fullname.split(" ").pop()}
-              <span className="text-sm text-black font-normal">
-                {"@" + data.user.username}
-              </span>
+          {user?.id === data.user.id ? (
+            <div className="flex flex-col" title={data.user.fullname}>
+              <div
+                draggable="false"
+                className="font-semibold text-xl text-primary-darker"
+              >
+                {data.user.fullname.split(" ").pop()}
+                <span className="text-sm text-black font-normal">
+                  {"@" + data.user.username}
+                </span>
+              </div>
+              <p className="text-sm">{formatDateTime(data.createdAt).date}</p>
             </div>
-            <p className="text-sm">{formatDateTime(data.createdAt).date}</p>
-          </Link>
+          ) : (
+            <Link
+              href={`/partner/account/${data.user.id}`}
+              className="flex flex-col"
+              title={data.user.fullname}
+            >
+              <div
+                draggable="false"
+                className="font-semibold text-xl text-primary-darker"
+              >
+                {data.user.fullname.split(" ").pop()}
+                <span className="text-sm text-black font-normal">
+                  {"@" + data.user.username}
+                </span>
+              </div>
+              <p className="text-sm">{formatDateTime(data.createdAt).date}</p>
+            </Link>
+          )}
           {size === "base" && user && user.username === data.user.username && (
             <Dropdown>
               <button className="w-10 h-10">
