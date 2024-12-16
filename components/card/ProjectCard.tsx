@@ -217,9 +217,7 @@ export default function ProjectCard({
                 {capitalizeFirstWord(data.title)}
               </p>
               <p
-                className={`text-start flex-grow${
-                  data.projectTags.length > 0 ? "line-clamp-1" : "line-clamp-3"
-                }`}
+                className={`text-start flex-grow line-clamp-1`}
               >
                 {data.content}
               </p>
